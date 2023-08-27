@@ -1,0 +1,15 @@
+{
+  "name": "ts-belt-algorithm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mobily/ts-belt": "^3.13.1",
+    "ts-pattern": "^5.0.5"
+  }
+}

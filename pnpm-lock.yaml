@@ -1,0 +1,24 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@mobily/ts-belt':
+    specifier: ^3.13.1
+    version: 3.13.1
+  ts-pattern:
+    specifier: ^5.0.5
+    version: 5.0.5
+
+packages:
+
+  /@mobily/ts-belt@3.13.1:
+    resolution: {integrity: sha512-K5KqIhPI/EoCTbA6CGbrenM9s41OouyK8A03fGJJcla/zKucsgLbz8HNbeseoLarRPgyWJsUyCYqFhI7t3Ra9Q==}
+    engines: {node: '>= 10.*'}
+    dev: false
+
+  /ts-pattern@5.0.5:
+    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
+    dev: false
