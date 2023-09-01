@@ -223,6 +223,22 @@ const findAdd2020 = (arr: Readonly<Array<number>>) =>
 		O.getWithDefault<[number, number]>([0, 0]),
 	);
 
+const developFindAdd2020 = (arr: Readonly<Array<number>>) => pipe(
+	arr,
+	A.mapWithIndex((idx1, item1) => 
+		pipe(
+			arr,
+			A.sliceToEnd(idx1 + 1),
+			A.map<number, [number, number]>(item2 => [item1, item2])
+		)
+	),
+	A.flat,
+	A.find(item => item[0] + item[1] === TWTW),
+	O.getWithDefault<[number, number]>([0, 0])
+)
+
+
 const multiplyNumber = (input: [number, number]) => pipe(input[0], N.multiply(input[1]));
 
 pipe(data, S.split('\n'), A.map(Number), findAdd2020, multiplyNumber, console.log);
+pipe(data, S.split('\n'), A.map(Number), developFindAdd2020, multiplyNumber, console.log)
