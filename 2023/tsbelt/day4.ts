@@ -214,22 +214,21 @@ Card 208: 40 42  5 91 29 59 70 49 23 94 | 82 81 30 61 64 65 19  9 67 75 92 16 26
 
 const getScore = (item: number) => (item < 1 ? 0 : Math.pow(2, item - 1));
 
+const removePrefix = (arg: string) => S.replaceByRe(arg, new RegExp(/^(Card \d: )/g), '');
+
+const removeSpace = (arg: readonly string[]) => pipe(arg, A.map(S.splitByRe(new RegExp(/ +/))));
+
+const parse = (arg: string) => pipe(arg, removePrefix, S.split(' | '), removeSpace);
+
+const splitAndParse = (arg: string) => pipe(arg, S.split('\n'), A.map(parse));
+
 const makeDefaultCardSet = (item: readonly (readonly (readonly O.Option<string>[])[])[]) =>
   pipe(item, A.length, A.make(1));
 
-export const split = (arg: string) =>
+const solve1 = (arg: string) =>
   pipe(
     arg,
-    S.split('\n'),
-    A.map(S.replaceByRe(new RegExp(/^(Card \d: )/g), '')),
-    A.map(S.split(' | ')),
-    A.map(flow(A.map(S.splitByRe(new RegExp(/ +/))))),
-  );
-
-export const solve1 = (arg: string) =>
-  pipe(
-    arg,
-    split,
+    splitAndParse,
     A.map((item) =>
       match([A.at(item, 0), A.at(item, 1)])
         .with([P.nonNullable, P.nonNullable], ([head, tail]) =>
@@ -244,7 +243,7 @@ export const solve1 = (arg: string) =>
 export const solve2 = (arg: string) =>
   pipe(
     arg,
-    split,
+    splitAndParse,
     (cardSetList) =>
       pipe(
         cardSetList,
