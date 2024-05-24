@@ -5,12 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@biomejs/monorepo':
+    specifier: github:biomejs/biome
+    version: github.com/biomejs/biome/af70ac2d3d804c5c254590ac74a3b2a113f9a28d
   '@mobily/ts-belt':
     specifier: ^3.13.1
     version: 3.13.1
   ts-pattern:
-    specifier: ^5.0.5
-    version: 5.0.5
+    specifier: ^5.1.0
+    version: 5.1.1
 
 packages:
 
@@ -19,6 +22,12 @@ packages:
     engines: {node: '>= 10.*'}
     dev: false
 
-  /ts-pattern@5.0.5:
-    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
+  /ts-pattern@5.1.1:
+    resolution: {integrity: sha512-i+owkHr5RYdQxj8olUgRrqpiWH9x27PuWVfXwDmJ/n/CoF/SAa7WW1i2oUpPDMQpJ4U+bGRUcZkVq7i1m3zFCg==}
+    dev: false
+
+  github.com/biomejs/biome/af70ac2d3d804c5c254590ac74a3b2a113f9a28d:
+    resolution: {tarball: https://codeload.github.com/biomejs/biome/tar.gz/af70ac2d3d804c5c254590ac74a3b2a113f9a28d}
+    name: '@biomejs/monorepo'
+    version: 0.0.0
     dev: false

@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@biomejs/monorepo": "github:biomejs/biome",
     "@mobily/ts-belt": "^3.13.1",
-    "ts-pattern": "^5.0.5"
+    "ts-pattern": "^5.1.0"
   }
 }
