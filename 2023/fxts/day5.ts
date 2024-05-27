@@ -1069,7 +1069,7 @@ const isHighCard = (item: number[]) =>
     .with([5, 1, 1, 1, 1, 1], () => true)
     .otherwise(() => false);
 
-const getRank = (arg: string) =>
+const parseCardList = (arg: string) =>
   pipe(
     arg,
     split(''),
@@ -1077,21 +1077,24 @@ const getRank = (arg: string) =>
     countBy((item) => item.char),
     values,
     toArray,
-    (cardSet) =>
-      match(cardSet)
-        .with(P.when(isFiveOfAKind), () => FIVE_OF_KIND)
-        .with(P.when(isFourOfAKind), () => FOUR_OF_KIND)
-        .with(P.when(isFullHouse), () => FULL_HOUSE)
-        .with(P.when(isThreeOfAKind), () => THREE_OF_KIND)
-        .with(P.when(isTwoPair), () => TWO_PAIR)
-        .with(P.when(isOnePair), () => ONE_PAIR)
-        .with(P.when(isHighCard), () => HIGH_CARD)
-        .otherwise(() => SOME_THING_WRONG),
   );
 
-const parse = (arg: string) => pipe(arg, split('\n'), map(makeTuple), toArray);
+const getRank = (arg: string) =>
+  pipe(arg, parseCardList, (cardSet) =>
+    match(cardSet)
+      .with(P.when(isFiveOfAKind), () => FIVE_OF_KIND)
+      .with(P.when(isFourOfAKind), () => FOUR_OF_KIND)
+      .with(P.when(isFullHouse), () => FULL_HOUSE)
+      .with(P.when(isThreeOfAKind), () => THREE_OF_KIND)
+      .with(P.when(isTwoPair), () => TWO_PAIR)
+      .with(P.when(isOnePair), () => ONE_PAIR)
+      .with(P.when(isHighCard), () => HIGH_CARD)
+      .otherwise(() => SOME_THING_WRONG),
+  );
 
-const changeChar = (arg: string) =>
+const parseInput = (arg: string) => pipe(arg, split('\n'), map(makeTuple), toArray);
+
+const changeCharQuestion1 = (arg: string) =>
   arg
     .replaceAll('A', 'E')
     .replaceAll('K', 'D')
@@ -1099,17 +1102,20 @@ const changeChar = (arg: string) =>
     .replaceAll('J', 'B')
     .replaceAll('T', 'A');
 
-const sortPlayer = (arg: [string, number][]) =>
+const sortPlayerQuestion1 = (arg: [string, number][]) =>
   [...arg].sort((playerA, playerB) =>
     match([playerA, playerB])
       .with(
         P.when(([[cardListA], [cardListB]]) => getRank(cardListA) === getRank(cardListB)),
-        ([[cardListA], [cardListB]]) => (changeChar(cardListA) > changeChar(cardListB) ? 1 : -1),
+        ([[cardListA], [cardListB]]) =>
+          changeCharQuestion1(cardListA) > changeCharQuestion1(cardListB) ? 1 : -1,
       )
       .otherwise(([[cardListA], [cardListB]]) =>
         getRank(cardListA) > getRank(cardListB) ? 1 : -1,
       ),
   );
+
+// const upgradeRank = (arg: string) =>
 
 const addScore = (arg: [string, number][]) =>
   pipe(
@@ -1119,11 +1125,6 @@ const addScore = (arg: [string, number][]) =>
     reduce((acc, cur) => acc + cur),
   );
 
-const solve1 = (arg: string) => pipe(arg, parse, sortPlayer, addScore, console.log);
+const solve1 = (arg: string) => pipe(arg, parseInput, sortPlayerQuestion1, addScore, console.log);
 
 solve1(arg);
-solve1(`32T3K 765
-T55J5 684
-KK677 28
-KTJJT 220
-QQQJA 483`);
